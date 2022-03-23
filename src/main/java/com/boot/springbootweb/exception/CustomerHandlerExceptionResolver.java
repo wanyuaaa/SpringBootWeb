@@ -1,7 +1,5 @@
 package com.boot.springbootweb.exception;
 
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,7 +19,6 @@ public class CustomerHandlerExceptionResolver implements HandlerExceptionResolve
     public ModelAndView resolveException(HttpServletRequest request,
                                          HttpServletResponse response,
                                          Object handler, Exception ex) {
-
         try {
             response.sendError(511, "我喜欢的错误");
         } catch (IOException e) {
