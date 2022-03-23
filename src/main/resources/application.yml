@@ -7,7 +7,7 @@ spring:
       max-file-size: 10MB
       max-request-size: 100MB
   datasource:
-    url: jdbc:mysql://localhost:3306/mybatis?useSSL=false
+    url: jdbc:mysql://localhost:13306/mybatis?useSSL=false
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
@@ -32,7 +32,6 @@ spring:
           enabled: true
         wall:
           enabled: true
-
 
 #    type: com.zaxxer.hikari.HikariDataSource
 #server:

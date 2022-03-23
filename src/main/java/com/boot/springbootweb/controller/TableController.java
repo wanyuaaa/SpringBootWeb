@@ -1,10 +1,13 @@
 package com.boot.springbootweb.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.boot.springbootweb.bean.User;
-import com.boot.springbootweb.exception.UserTooManyException;
+import com.boot.springbootweb.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,36 +19,39 @@ import java.util.List;
 @Controller
 public class TableController {
 
+    @Autowired
+    UserService userService;
+
     @GetMapping("/basic_table")
-    public String basic_table(){
-        int a = 10/0;
+    public String basic_table() {
+        //int a = 10/0;
         return "table/basic_table";
     }
 
     @GetMapping("/dynamic_table")
-    public String dynamic_table(Model model){
+    public String dynamic_table(Model model, @RequestParam(value = "pn", defaultValue = "1") Integer pn) {
         //表格内容遍历
-        List<User> users = Arrays.asList(new User("zhangsan", "123456"),
-                new User("lisi", "123456"),
-                new User("wangwu", "123456"),
-                new User("zhaoda", "123456"),
-                new User("qianer", "123456"));
+        List<User> users = Arrays.asList(new User("zhangsan", "123456"), new User("lisi", "123456"), new User("wangwu", "123456"), new User("zhaoda", "123456"), new User("qianer", "123456"));
 
-        if(users.size()>3){
-            throw new UserTooManyException();
-        }
+//        if(users.size()>3){
+//            throw new UserTooManyException();
+//        }
+        List<User> list = userService.list();
+        Page<User> userPage = new Page<>(pn, 2);
+        Page<User> page = userService.page(userPage);
 
-        model.addAttribute("userList",users);
+        //model.addAttribute("userList", list);
+        model.addAttribute("page", page);
         return "table/dynamic_table";
     }
 
     @GetMapping("/responsive_table")
-    public String responsive_table(){
+    public String responsive_table() {
         return "table/responsive_table";
     }
 
     @GetMapping("/editable_table")
-    public String editable_table(){
+    public String editable_table() {
         return "table/editable_table";
     }
 }

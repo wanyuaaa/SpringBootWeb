@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="ThemeBucket">
-  <link rel="shortcut icon" href="#" type="image/png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    <link rel="shortcut icon" href="#" type="image/png">
 
-  <title>Dynamic Table</title>
+    <title>Dynamic Table</title>
 
-  <!--dynamic table-->
-  <link href="js/advanced-datatable/css/demo_page.css" rel="stylesheet" />
-  <link href="js/advanced-datatable/css/demo_table.css" rel="stylesheet" />
-  <link rel="stylesheet" href="js/data-tables/DT_bootstrap.css" />
+    <!--dynamic table-->
+    <link href="js/advanced-datatable/css/demo_page.css" rel="stylesheet"/>
+    <link href="js/advanced-datatable/css/demo_table.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="js/data-tables/DT_bootstrap.css"/>
 
     <div th:include="common :: commonheader"></div>
 </head>
@@ -21,9 +21,9 @@
 
 <section>
     <div th:replace="common :: #leftmenu"></div>
-    
+
     <!-- main content start-->
-    <div class="main-content" >
+    <div class="main-content">
 
         <div th:replace="common :: headermenu"></div>
 
@@ -39,53 +39,69 @@
                 <li>
                     <a href="#">Data Tables</a>
                 </li>
-                <li class="active"> Dynamic Table </li>
+                <li class="active"> Dynamic Table</li>
             </ul>
         </div>
         <!-- page heading end-->
 
         <!--body wrapper start-->
         <div class="wrapper">
-        <div class="row">
-        <div class="col-sm-12">
-        <section class="panel">
-        <header class="panel-heading">
-            Dynamic Table
-            <span class="tools pull-right">
+            <div class="row">
+                <div class="col-sm-12">
+                    <section class="panel">
+                        <header class="panel-heading">
+                            Dynamic Table
+                            <span class="tools pull-right">
                 <a href="javascript:;" class="fa fa-chevron-down"></a>
                 <a href="javascript:;" class="fa fa-times"></a>
              </span>
-        </header>
-        <div class="panel-body">
-        <div class="adv-table">
-        <table  class="display table table-bordered table-striped" id="dynamic-table">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>userName</th>
-            <th>password</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="gradeX" th:each="user,stats:${userList}">
-            <td>[[${stats.count}]]</td>
-            <td th:text="${user.userName}"></td>
-            <td>[[${user.password}]]</td>
-        </tr>
-        </tbody>
-        <tfoot>
-        <tr>
-            <th>Rendering engine</th>
-            <th>Browser</th>
-            <th>Platform(s)</th>
-        </tr>
-        </tfoot>
-        </table>
-        </div>
-        </div>
-        </section>
-        </div>
-        </div>
+                        </header>
+                        <div class="panel-body">
+                            <div class="adv-table">
+                                <table class="display table table-bordered table-striped" id="dynamic-table">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>name</th>
+                                        <th>age</th>
+                                        <th>email</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="gradeX" th:each="user,stats:${page.records}">
+                                        <td>[[${user.id}]]</td>
+                                        <td th:text="${user.name}"></td>
+                                        <td>[[${user.age}]]</td>
+                                        <td>[[${user.email}]]</td>
+                                    </tr>
+                                    </tbody>
+                                    <tfoot>
+                                    </tfoot>
+                                </table>
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <div class="dataTables_info" id="dynamic-table_info">
+                                            当前第[[${page.current}]]页 总计 [[${page.pages}]]页 共[[${page.total}]]条记录
+                                        </div>
+                                    </div>
+                                    <div class="span6">
+                                        <div class="dataTables_paginate paging_bootstrap pagination">
+                                            <ul>
+                                                <li class="prev disabled"><a href="#">← 前一页</a></li>
+                                                <li th:class="${num == page.current?'active':''}"
+                                                    th:each="num:${#numbers.sequence(1,page.pages)}">
+                                                    <a th:href="@{/dynamic_table(pn=${num})}">[[${num}]]</a>
+                                                </li>
+                                                <li class="next disabled"><a href="#">下一页 → </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
         </div>
         <!--body wrapper end-->
 
