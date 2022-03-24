@@ -73,6 +73,9 @@
                                         <td th:text="${user.name}"></td>
                                         <td>[[${user.age}]]</td>
                                         <td>[[${user.email}]]</td>
+                                        <td>
+                                            <a th:href="@{/user/delete/{id}(id=${user.id},pn=${page.current})}" class="btn btn-danger btn-sm" type="button">删除</a>
+                                        </td>
                                     </tr>
                                     </tbody>
                                     <tfoot>
